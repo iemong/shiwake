@@ -1,2 +1,4 @@
 .idea
 shiwake.iml
+node_modules
+.env
