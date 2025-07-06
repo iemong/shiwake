@@ -40,14 +40,14 @@ impl PhotoSortCore {
         self.version.clone()
     }
     
-    pub fn decode_jpeg_thumbnail(&self, data: &[u8], max_size: u32) -> Result<Vec<u8>, JsValue> {
+    pub fn decode_jpeg_thumbnail(&self, data: &[u8], _max_size: u32) -> Result<Vec<u8>, JsValue> {
         console_log!("Decoding JPEG thumbnail, data size: {}", data.len());
         
         // TODO: 実際のJPEGデコード実装
         Ok(vec![])
     }
     
-    pub fn decode_dng_thumbnail(&self, data: &[u8], max_size: u32) -> Result<Vec<u8>, JsValue> {
+    pub fn decode_dng_thumbnail(&self, data: &[u8], _max_size: u32) -> Result<Vec<u8>, JsValue> {
         console_log!("Decoding DNG thumbnail, data size: {}", data.len());
         
         // TODO: 実際のDNGデコード実装  

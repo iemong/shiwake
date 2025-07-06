@@ -1,13 +1,20 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import wasmPack from 'vite-plugin-wasm-pack'
+import wasm from 'vite-plugin-wasm'
+import topLevelAwait from 'vite-plugin-top-level-await'
 import { resolve } from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src')
+    }
+  },
   plugins: [
     react(),
-    wasmPack(['./src/wasm'])
+    wasm(),
+    topLevelAwait()
   ],
   server: {
     headers: {
@@ -28,8 +35,5 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html')
       }
     }
-  },
-  optimizeDeps: {
-    exclude: ['photo_sort_core']
   }
 })

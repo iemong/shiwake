@@ -53,5 +53,3 @@ codegen-units = 1
 opt-level = 0
 debug = true
 
-[package.metadata.wasm-pack]
-"wasm-opt" = ["-O4", "--enable-simd"]
