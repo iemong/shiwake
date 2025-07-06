@@ -59,10 +59,8 @@ async function main() {
   }
 
   // 標準入力からJSONを読み取る（notification hookから呼び出された場合）
-  const decoder = new TextDecoder();
   console.debug("標準入力からのデータを読み取ります...", Deno.stdin);
-  const stdinData = await new Response(Deno.stdin.readable).text();
-  const stdinText = decoder.decode(stdinData);
+  const stdinText = await new Response(Deno.stdin.readable).text();
 
   if (stdinText.trim()) {
     try {
@@ -81,28 +79,6 @@ async function main() {
   const defaultTitle = "実装完了";
   const defaultMessage = "Claude Codeによる実装が完了しました。";
   await sendDiscordNotification(webhookUrl, defaultTitle, defaultMessage);
-}
-
-async function readAll(reader: Deno.Reader): Promise<Uint8Array> {
-  const chunks: Uint8Array[] = [];
-  const buffer = new Uint8Array(1024);
-  
-  while (true) {
-    const n = await reader.read(buffer);
-    if (n === null) break;
-    chunks.push(buffer.slice(0, n));
-  }
-  
-  const totalLength = chunks.reduce((sum, chunk) => sum + chunk.length, 0);
-  const result = new Uint8Array(totalLength);
-  let offset = 0;
-  
-  for (const chunk of chunks) {
-    result.set(chunk, offset);
-    offset += chunk.length;
-  }
-  
-  return result;
 }
 
 if (import.meta.main) {
