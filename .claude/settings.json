@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "deno run --allow-net --allow-env --env-file ./discord-notification.ts"
+          }
+        ]
+      }
+    ]
+  }
+}
