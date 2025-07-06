@@ -10,6 +10,17 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "deno run --allow-net --allow-env --env-file ./discord-notification.ts \"実装完了\" \"Claude Codeによる実装が完了しました。\""
+          }
+        ]
+      }
     ]
   }
 }

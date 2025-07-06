@@ -49,6 +49,15 @@ async function main() {
     Deno.exit(1);
   }
 
+  // コマンドライン引数を確認
+  const args = Deno.args;
+  
+  // 引数が指定されている場合は、それを使用
+  if (args.length >= 2) {
+    await sendDiscordNotification(webhookUrl, args[0], args[1]);
+    return;
+  }
+
   // 標準入力からJSONを読み取る（notification hookから呼び出された場合）
   const decoder = new TextDecoder();
   console.debug("標準入力からのデータを読み取ります...", Deno.stdin);
@@ -64,18 +73,14 @@ async function main() {
       return;
     } catch (error) {
       console.error("JSON解析エラー:", error);
-      // JSONの解析に失敗した場合は手動実行として処理
+      // JSONの解析に失敗した場合はデフォルトメッセージを使用
     }
   }
 
-  // 手動実行の場合
-  const args = Deno.args;
-  if (args.length < 2) {
-    console.error("使用方法: discord-notification.ts [タイトル] [メッセージ]");
-    Deno.exit(1);
-  }
-
-  await sendDiscordNotification(webhookUrl, args[0], args[1]);
+  // stop hookやstdinにデータがない場合のデフォルトメッセージ
+  const defaultTitle = "実装完了";
+  const defaultMessage = "Claude Codeによる実装が完了しました。";
+  await sendDiscordNotification(webhookUrl, defaultTitle, defaultMessage);
 }
 
 async function readAll(reader: Deno.Reader): Promise<Uint8Array> {
