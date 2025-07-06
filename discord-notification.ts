@@ -61,7 +61,7 @@ async function main() {
   // 標準入力からJSONを読み取る（notification hookから呼び出された場合）
   const decoder = new TextDecoder();
   console.debug("標準入力からのデータを読み取ります...", Deno.stdin);
-  const stdinData = await readAll(Deno.stdin);
+  const stdinData = await new Response(Deno.stdin.readable).text();
   const stdinText = decoder.decode(stdinData);
 
   if (stdinText.trim()) {
